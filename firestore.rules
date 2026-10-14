@@ -1,0 +1,189 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ========================================
+    // FUNCIONES DE APOYO
+    // ========================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Verifica si el usuario es el dueño del colmado referenciado
+    function isOwnerOf(colmadoId) {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/colmados_requests/$(colmadoId)).data.ownerId == request.auth.uid;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.email == 'admin@domifiao.com' || 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+    }
+
+    // ========================================
+    // REGLAS DE COLECCIONES
+    // ========================================
+
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if isAuthenticated() && request.auth.uid == userId;
+      
+      match /favorites/{favId} {
+        allow read, write: if isAuthenticated() && request.auth.uid == userId;
+      }
+
+      match /notifications/{notifId} {
+        allow read: if isAuthenticated() && request.auth.uid == userId;
+        allow create: if isAuthenticated();
+        allow update, delete: if isAuthenticated() && request.auth.uid == userId;
+      }
+    }
+
+    match /colmados_requests/{colmadoId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (resource.data.ownerId == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+
+      match /notifications/{notifId} {
+        allow read: if isOwnerOf(colmadoId);
+        allow create: if isAuthenticated();
+        allow update, delete: if isOwnerOf(colmadoId);
+      }
+    }
+
+    match /delivery_applications/{appId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.userId || 
+        isOwnerOf(resource.data.colmadoId) || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (isOwnerOf(resource.data.colmadoId) || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /app_config/{configId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /colmado_products/{productId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && isOwnerOf(request.resource.data.colmadoId);
+      allow update: if isAuthenticated() && (isOwnerOf(resource.data.colmadoId) || isAdmin());
+      allow delete: if isAuthenticated() && (isOwnerOf(resource.data.colmadoId) || isAdmin());
+    }
+
+    match /orders/{orderId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.clientId || 
+        isOwnerOf(resource.data.colmadoId) || 
+        request.auth.uid == resource.data.deliveryId ||
+        isAdmin()
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (
+        request.auth.uid == resource.data.clientId || 
+        isOwnerOf(resource.data.colmadoId) || 
+        request.auth.uid == resource.data.deliveryId ||
+        isAdmin()
+      );
+    }
+
+    match /debts/{debtId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.clientId || 
+        isOwnerOf(resource.data.colmadoId) || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated() && (
+        isOwnerOf(request.resource.data.colmadoId) || 
+        isAdmin()
+      );
+      allow update: if isAuthenticated() && (
+        isOwnerOf(resource.data.colmadoId) || 
+        isAdmin()
+      );
+      allow delete: if isAdmin() || (isAuthenticated() && isOwnerOf(resource.data.colmadoId));
+    }
+
+    match /debt_transactions/{transactionId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.clientId || 
+        isOwnerOf(resource.data.colmadoId) || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated() && (
+        isOwnerOf(request.resource.data.colmadoId) || 
+        isAdmin()
+      );
+      allow update, delete: if isAdmin() || (isAuthenticated() && isOwnerOf(resource.data.colmadoId));
+    }
+
+    match /credit_requests/{requestId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.clientId || 
+        isOwnerOf(resource.data.colmadoId) || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (isOwnerOf(resource.data.colmadoId) || isAdmin());
+      allow delete: if isAuthenticated() && (request.auth.uid == resource.data.clientId || isAdmin());
+    }
+
+    match /chats/{chatId} {
+      allow read, update, delete: if isAuthenticated() && (
+        request.auth.uid in resource.data.participants || 
+        request.auth.uid == resource.data.clientId || 
+        request.auth.uid == resource.data.colmadoId ||
+        (resource.data.colmadoId != null && isOwnerOf(resource.data.colmadoId))
+      );
+      allow create: if isAuthenticated() && (
+        request.auth.uid in request.resource.data.participants || 
+        request.auth.uid == request.resource.data.clientId || 
+        request.auth.uid == request.resource.data.colmadoId ||
+        (request.resource.data.colmadoId != null && isOwnerOf(request.resource.data.colmadoId))
+      );
+      match /messages/{msgId} {
+        allow read: if isAuthenticated();
+        allow create: if isAuthenticated();
+      }
+    }
+
+    match /loyalty_accounts/{accountId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.userId || 
+        isOwnerOf(resource.data.colmadoId) ||
+        isAdmin()
+      );
+      allow create: if isAuthenticated() && (
+        isOwnerOf(request.resource.data.colmadoId) || 
+        isAdmin()
+      );
+      allow update, delete: if isAuthenticated() && (
+        isOwnerOf(resource.data.colmadoId) || 
+        isAdmin()
+      );
+      
+      match /transactions/{transId} {
+        allow read: if isAuthenticated(); // Inherits security from parent essentially in practice, or allow all authenticated for simplicity if nested
+        allow create: if isAuthenticated();
+        allow update, delete: if isAdmin() || (isAuthenticated() && isOwnerOf(get(/databases/$(database)/documents/loyalty_accounts/$(accountId)).data.colmadoId));
+      }
+    }
+
+    match /loyalty_points/{pointId} {
+      allow read: if isAuthenticated() && (isOwnerOf(resource.data.colmadoId) || isAdmin());
+      allow write: if isAdmin(); // Only admins should modify global point configs if they exist, or owners if it's per colmado settings
+      allow create, update: if isAuthenticated() && isOwnerOf(request.resource.data.colmadoId);
+    }
+
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

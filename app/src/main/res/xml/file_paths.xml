@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+FileProvider paths - Configuración segura para compartir archivos
+Solo se comparten directorios específicos, no raíz completa
+-->
+<paths>
+    <!-- Imágenes capturadas por cámara (solo carpeta images/) -->
+    <cache-path name="camera_images" path="images/" />
+
+    <!-- Documentos capturados para verificación de identidad -->
+    <cache-path name="documents" path="documents/" />
+
+    <!-- Códigos de barras escaneados (temporal) -->
+    <cache-path name="barcodes" path="barcodes/" />
+
+    <!-- Archivos de perfil del usuario -->
+    <files-path name="profile_photos" path="profile/" />
+
+    <!-- NO exponer cache externo completo, solo carpeta específica -->
+    <external-cache-path name="temp_exports" path="exports/" />
+</paths>

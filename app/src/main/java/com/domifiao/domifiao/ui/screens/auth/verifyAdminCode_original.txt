@@ -1,0 +1,26 @@
+private fun verifyAdminCode(
+    db: FirebaseFirestore,
+    inputCode: String,
+    onSuccess: () -> Unit,
+    onFailure: (String) -> Unit
+) {
+    db.collection("app_config").document("admin_settings").get()
+        .addOnSuccessListener { document ->
+            if (document.exists()) {
+                val storedHash = document.getString("codeHash") ?: ""
+                val inputHash = hashSHA256(inputCode)
+
+                if (storedHash.isNotEmpty() && storedHash == inputHash) {
+                    onSuccess()
+                } else {
+                    onFailure("Codigo Incorrecto")
+                }
+            } else {
+                // Fallback: Si no existe el documento, rechazar
+                onFailure("Configuracion no encontrada")
+            }
+        }
+        .addOnFailureListener {
+            onFailure("Error de conexion: " + it.message)
+        }
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--
+    Configuración de seguridad de red para Domifiao
+    - Solo permite HTTPS (cleartext deshabilitado)
+    - Requiere TLS 1.2+ para todas las conexiones
+    -->
+
+    <!-- Configuración para producción -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Confiar en certificados del sistema -->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!--
+    Configuración DEBUG: Solo para desarrollo local
+    Si necesitas conectarte a localhost en desarrollo, descomenta:
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+    </domain-config>
+    -->
+
+    <!--
+    Dominios confiables (todos usan HTTPS)
+    Firebase, Google APIs, etc. ya tienen certificados válidos
+    -->
+    <domain-config>
+        <domain includeSubdomains="true">firebaseio.com</domain>
+        <domain includeSubdomains="true">googleapis.com</domain>
+        <domain includeSubdomains="true">firebase.com</domain>
+        <domain includeSubdomains="true">google.com</domain>
+        <domain includeSubdomains="true">mapbox.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

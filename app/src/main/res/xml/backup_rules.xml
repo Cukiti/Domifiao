@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!--
+    Configuración de backup seguro para Domifiao
+    Excluye datos sensibles de sesión del backup en la nube
+    -->
+
+    <!-- Incluir SharedPreferences EXCEPTO las de sesión -->
+    <include domain="sharedpref" path="."/>
+    <exclude domain="sharedpref" path="domifiao_prefs.xml"/>
+
+    <!-- Incluir bases de datos locales -->
+    <include domain="database" path="."/>
+</full-backup-content>

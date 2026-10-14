@@ -1,0 +1,201 @@
+<resources>
+    <string name="app_name">Domifiao</string>
+
+    <!-- TOKEN DE MAPBOX -->
+    <!-- NOTA: El token ahora se carga desde BuildConfig.MAPBOX_ACCESS_TOKEN -->
+    <!-- Agregar MAPBOX_ACCESS_TOKEN en local.properties para desarrollo -->
+    <!-- Para producción, configurar como variable de entorno en CI/CD -->
+    <string name="mapbox_access_token" translatable="false">TOKEN_WILL_BE_LOADED_FROM_BUILDCONFIG</string>
+
+    <!-- MENSAJES GENERALES -->
+    <string name="loading">Cargando...</string>
+    <string name="error_generic">Ha ocurrido un error. Intenta de nuevo.</string>
+    <string name="error_connection">Error de conexión. Verifica tu internet.</string>
+    <string name="success">¡Listo!</string>
+    <string name="cancel">Cancelar</string>
+    <string name="accept">Aceptar</string>
+    <string name="save">Guardar</string>
+    <string name="delete">Eliminar</string>
+    <string name="edit">Editar</string>
+    <string name="search">Buscar</string>
+    <string name="back">Atrás</string>
+    <string name="next">Siguiente</string>
+    <string name="confirm">Confirmar</string>
+    <string name="close">Cerrar</string>
+
+    <!-- LOGIN Y REGISTRO -->
+    <string name="welcome">¡Bienvenido!</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="register">Registrarse</string>
+    <string name="phone_number">Número de Teléfono</string>
+    <string name="verify_phone">Verificar Teléfono</string>
+    <string name="enter_code">Ingresa el código</string>
+    <string name="code_sent">Código enviado a tu teléfono</string>
+    <string name="invalid_code">Código inválido</string>
+    <string name="phone_verified">¡Teléfono verificado!</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="no_account">¿No tienes cuenta?</string>
+    <string name="have_account">¿Ya tienes cuenta?</string>
+
+    <!-- CLIENTE -->
+    <string name="client_home">Inicio</string>
+    <string name="my_orders">Mis Pedidos</string>
+    <string name="my_credits">Mis Créditos</string>
+    <string name="favorites">Favoritos</string>
+    <string name="profile">Mi Perfil</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="chats">Mensajes</string>
+    <string name="search_colmados">Buscar colmados...</string>
+    <string name="no_colmados_found">No hay colmados en tu zona</string>
+    <string name="colmado_closed">Colmado cerrado</string>
+    <string name="colmado_open">Abierto</string>
+
+    <!-- CARRITO Y PEDIDOS -->
+    <string name="cart">Carrito</string>
+    <string name="cart_empty">Tu carrito está vacío</string>
+    <string name="add_to_cart">Agregar al carrito</string>
+    <string name="remove_from_cart">Quitar del carrito</string>
+    <string name="checkout">Confirmar Pedido</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="delivery_fee">Delivery</string>
+    <string name="total">Total</string>
+    <string name="place_order">Enviar Pedido</string>
+    <string name="order_sent">¡Pedido enviado!</string>
+    <string name="order_received">El colmado ha recibido tu pedido</string>
+    <string name="payment_method">Método de Pago</string>
+    <string name="cash">Efectivo</string>
+    <string name="credit">Fiado</string>
+    <string name="note">Nota para el colmado</string>
+
+    <!-- ESTADOS DE PEDIDO -->
+    <string name="status_pending">Pendiente</string>
+    <string name="status_preparing">En Preparación</string>
+    <string name="status_delivering">En Camino</string>
+    <string name="status_completed">Entregado</string>
+    <string name="status_cancelled">Cancelado</string>
+    <string name="status_waiting_approval">Esperando Aprobación</string>
+
+    <!-- COLMADO -->
+    <string name="colmado_home">Mi Colmado</string>
+    <string name="orders">Pedidos</string>
+    <string name="inventory">Inventario</string>
+    <string name="customers">Clientes</string>
+    <string name="credit_book">Libreta Fiado</string>
+    <string name="reports">Reportes</string>
+    <string name="settings">Configuración</string>
+    <string name="add_product">Agregar Producto</string>
+    <string name="scan_barcode">Escanear Código</string>
+    <string name="product_name">Nombre del Producto</string>
+    <string name="product_price">Precio</string>
+    <string name="product_category">Categoría</string>
+    <string name="product_available">Disponible</string>
+    <string name="product_unavailable">No Disponible</string>
+    <string name="sales_today">Ventas de Hoy</string>
+    <string name="pending_orders">Pedidos Pendientes</string>
+
+    <!-- CRÉDITO/FIADO -->
+    <string name="request_credit">Solicitar Crédito</string>
+    <string name="credit_limit">Límite de Crédito</string>
+    <string name="current_debt">Deuda Actual</string>
+    <string name="available_credit">Crédito Disponible</string>
+    <string name="credit_approved">¡Crédito Aprobado!</string>
+    <string name="credit_rejected">Solicitud Rechazada</string>
+    <string name="payment_promise">Promesa de Pago</string>
+    <string name="make_payment">Registrar Abono</string>
+    <string name="add_charge">Agregar Cargo</string>
+
+    <!-- VERIFICACIÓN -->
+    <string name="verify_identity">Verificar Identidad</string>
+    <string name="take_photo_cedula">Toma una foto de tu cédula</string>
+    <string name="identity_verified">¡Identidad Verificada!</string>
+    <string name="identity_not_verified">Identidad No Verificada</string>
+    <string name="verification_pending">Verificación Pendiente</string>
+
+    <!-- DELIVERY -->
+    <string name="available_deliveries">Entregas Disponibles</string>
+    <string name="my_deliveries">Mis Entregas</string>
+    <string name="accept_delivery">Aceptar Entrega</string>
+    <string name="mark_delivered">Marcar como Entregado</string>
+    <string name="navigate">Navegar</string>
+    <string name="call_customer">Llamar Cliente</string>
+
+    <!-- ERRORES ESPECÍFICOS -->
+    <string name="error_empty_cart">El carrito está vacío</string>
+    <string name="error_colmado_closed">El colmado está cerrado</string>
+    <string name="error_insufficient_credit">Crédito insuficiente</string>
+    <string name="error_product_unavailable">Producto no disponible</string>
+    <string name="error_invalid_phone">Número de teléfono inválido</string>
+    <string name="error_invalid_cedula">Cédula inválida</string>
+    <string name="error_required_fields">Completa todos los campos requeridos</string>
+    <string name="error_camera_permission">Se necesita permiso de cámara</string>
+    <string name="error_location_permission">Se necesita permiso de ubicación</string>
+
+    <!-- CONFIRMACIONES -->
+    <string name="confirm_cancel_order">¿Seguro que deseas cancelar este pedido?</string>
+    <string name="confirm_logout">¿Seguro que deseas cerrar sesión?</string>
+    <string name="confirm_delete">¿Seguro que deseas eliminar?</string>
+    <string name="confirm_reject">¿Seguro que deseas rechazar?</string>
+
+    <!-- UNIDADES -->
+    <string name="unit">Unidad</string>
+    <string name="pound">Libra</string>
+    <string name="liter">Litro</string>
+    <string name="package_unit">Paquete</string>
+    <string name="dozen">Docena</string>
+    <string name="by_pound">Por Libra</string>
+    <string name="by_detail">Al Detalle</string>
+
+    <!-- TIEMPO -->
+    <string name="just_now">Ahora</string>
+    <string name="minutes_ago">hace %d min</string>
+    <string name="hours_ago">hace %d h</string>
+    <string name="days_ago">hace %d días</string>
+    <string name="today">Hoy</string>
+    <string name="yesterday">Ayer</string>
+    <!-- Delivery Dashboard -->
+    <string name="delivery_dashboard_title">Panel de Delivery</string>
+    <string name="tab_available">Disponibles</string>
+    <string name="tab_my_deliveries">Mis Entregas</string>
+    <string name="no_new_orders">No hay pedidos nuevos</string>
+    <string name="no_active_deliveries">No tienes entregas activas</string>
+    <string name="house_of">Casa de %1$s</string>
+    <string name="house_photo_desc">Foto de la casa</string>
+    <string name="description">Descripción</string>
+    <string name="google_maps">Google Maps</string>
+    <string name="price_format">RD$ %1$s</string>
+    <string name="yours">TUYO</string>
+    <string name="deliver_to">Entregar a: %1$s</string>
+    <string name="location_desc_format">📍 %1$s</string>
+    <string name="view_house">Ver Casa</string>
+    <string name="gps">GPS</string>
+    <string name="start">Iniciar</string>
+    <string name="btn_accept_order_caps">ACEPTAR PEDIDO</string>
+    <string name="order_accepted_toast">¡Pedido aceptado!</string>
+    <string name="order_taken_by_other">Alguien más tomó el pedido</string>
+    <string name="status_waiting_confirmation">Esperando confirmación</string>
+    <string name="status_preparing_short">Preparando</string>
+
+    <!-- Colmado Orders -->
+    <string name="toast_credit_order_closed">Pedido fiado cerrado</string>
+    <string name="toast_status_updated">Estado actualizado</string>
+    <string name="toast_error_updating">Error al actualizar: %1$s</string>
+    <string name="order_management_title">Gestión de Pedidos</string>
+    <string name="tab_pending">Pendientes</string>
+    <string name="tab_history">Historial</string>
+    <string name="no_pending_orders">Sin pedidos pendientes</string>
+    <string name="no_recent_history">Sin historial reciente</string>
+    <string name="reject_order_title">Rechazar Pedido</string>
+    <string name="confirm_reject_order_format">¿Estás seguro de que quieres rechazar el pedido de %1$s?</string>
+    <string name="btn_yes_reject">Sí, Rechazar</string>
+    <string name="product_quantity_name_format">%1$s %2$s</string>
+    <string name="pending_quote">Pte. Cotizar</string>
+    <string name="btn_view_order">Ver Pedido</string>
+    <string name="btn_reject">Rechazar</string>
+    <string name="btn_view_details">Ver Detalles</string>
+    <string name="btn_accept_order">Aceptar Pedido</string>
+    <string name="btn_view_quote">Ver Cotización</string>
+    <string name="btn_send_delivery">Enviar Delivery</string>
+    <string name="btn_arrived_destination">Llegó al destino</string>
+    <string name="btn_finish_delivery">Finalizar Entrega</string>
+    <string name="btn_manage">Gestionar</string>
+</resources>
